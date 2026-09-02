@@ -1,0 +1,45 @@
+﻿@page
+<!-- model PokemonMVC.Views.Pokemon.DetailsModel -->
+<!-- This below tells the view which object it receives from the controller
+Razor views use the Model property to access that data -->
+@model PokemonMVC.Models.PokemonDetails
+
+@{
+    ViewData["Title"] = "Pokemon Details";
+}
+
+<h1>Pokemon Details</h1>
+<!-- The image will be shown only if Front_Default exists, which avoids
+broken image output when the sprite is missing. PokéAPI documents "sprites" 
+as part of the Pokémon response-->
+@if (Model.Sprites != null && !string.IsNullOrEmpty(Model.Sprites.Front_Default))
+{
+    <img src="@Model.Sprites.Front_Default" alt="@Model.Name" />
+}
+
+<p><strong>ID:</strong> @Model.Id</p>
+<p><strong>Name:</strong> @Model.Name</p>
+<p><strong>Height:</strong> @Model.Height</p>
+<!-- <p><strong>Weight:</strong> Model.Weight</p> -->
+<p><strong>Base Experience:</strong> @Model.Base_Experience</p>
+
+<h2>Types</h2>
+@if (Model.Types != null && Model.Types != null && Model.Types.Any())
+{
+<ul>
+<!-- The types are rendered with foreach, which is the normal Razor 
+pattern for showing a list from the model-->
+    @foreach (var typeEntry in Model.Types)
+    {
+        <li>@typeEntry.Type.Name</li>
+    }
+</ul>
+}
+else
+{
+    <p>No types available.</p>
+}
+
+<p>
+<a asp-action="Index" asp-controller="Pokemon">Back to Pokémon List</a>
+</p>
