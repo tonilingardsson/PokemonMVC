@@ -3,8 +3,12 @@ using PokemonMVC.Services;
 var builder = new WebApplication.CreateBuilder(args);
 
 // Adding services to the container.
+// Enables MVC controller and Razor views
 builder.Services.AddControllersWithViews();
+// registers IHttpclientFactory, which is the recommended way to use HttpClient in .NET Core applications.
+// It manages the lifecycle of HttpClient instances and helps avoid common issues like socket exhaustion.
 builder.Services.AddHttpClient();
+// Tells dependency injection to provide an instance of PokemonService whenever IPokemonService is requested.
 builder.Services.AddScoped<IPokemonService, PokemonService>(); // PokemonService yet to come
 namespace PokemonMVC
 {
@@ -14,7 +18,7 @@ namespace PokemonMVC
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Add services to the container. 
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
