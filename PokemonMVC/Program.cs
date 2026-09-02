@@ -1,3 +1,11 @@
+using PokemonMVC.Services;
+
+var builder = new WebApplication.CreateBuilder(args);
+
+// Adding services to the container.
+builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IPokemonService, PokemonService>(); // PokemonService yet to come
 namespace PokemonMVC
 {
     public class Program
