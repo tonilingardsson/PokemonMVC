@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Pokemon Not Found";
+}
+
+<h1>Pokemon Not Found</h1>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <p>@ViewBag.ErrorMessage</p>
+}
+else
+{
+    <p>The Pokémon you searched for could not be found.</p>
+}
+
+<p>
+    <a asp-action="Index" asp-controller="Pokemon">Back to Pokemon List</a>
+</p>
