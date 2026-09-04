@@ -1,42 +1,35 @@
-﻿@page
-<!-- model PokemonMVC.Views.Pokemon.IndexModel -->
-<!-- The view expects the list response object from the controller. 
-Razor views access passed data through the Model property -->
-@model PokemonMVC.Models.PokemonListResponse
+﻿@model PokemonMVC.Models.PokemonListResponse
 
 @{
     ViewData["Title"] = "Pokemon List";
 }
 
-<h1>Pokemon List</h1>
-<!-- The form posts to PokemonController.Search using tag helpers, 
-which ASP.NET Core uses to generate the right action URL -->
+<h1>Pokémon</h1>
+
 <form asp-action="Search" asp-controller="Pokemon" method="post">
-<section>
-        <label for="searchTerm">Search Pokemon:</label>
-        <input type="text" id="searchTerm" name="searchTerm" />
-        <button type="submit">Search</button>
-</section>
+    <input type="text" name="searchTerm" placeholder="Search Pokémon by name" />
+    <button type="submit">Search</button>
 </form>
 
 @if (ViewBag.ErrorMessage != null)
 {
-<p class="error-message">@ViewBag.ErrorMessage</p>
+    <p>@ViewBag.ErrorMessage</p>
 }
-else if (Model != null && Model.Results != null && Model.Results.Any())
+
+@if (Model != null && Model.Results != null && Model.Results.Any())
 {
-<ul>
-        <!-- The foreach loop prints each Pokémon and creates a link to the Details action
- with the Pokémon name as the route value. Anchor tag helpers generate MVC links from controller/action/route data -->
-    @foreach (var pokemon in Model.Results)
-    {
-<li>
-        <a asp-action="Details" asp-controller="Pokemon" asp-route-id="@pokemon.Name">@pokemon.Name</a>
-    </li>
-    }
-</ul>
+    <ul>
+        @foreach (var pokemon in Model.Results)
+        {
+            <li>
+                <a asp-action="Details" asp-controller="Pokemon" asp-route-id="@pokemon.Name">
+                    @pokemon.Name
+                </a>
+            </li>
+        }
+    </ul>
 }
 else
 {
-<p>No Pokémon found.</p>
-}))
+    <p>No Pokémon found.</p>
+}
