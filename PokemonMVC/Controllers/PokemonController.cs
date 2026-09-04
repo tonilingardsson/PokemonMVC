@@ -36,7 +36,8 @@ namespace PokemonMVC.Controllers
 
             var pokemon = await _pokemonService.GetPokemonDetailsAsync(id);
             
-            if (pokemon == null) {
+            if (pokemon == null) 
+            {
                 return View("NotFound");
             }
 
